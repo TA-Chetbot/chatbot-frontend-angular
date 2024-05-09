@@ -1,0 +1,54 @@
+<!-- chatbot.component.html -->
+<div
+  class="w-[340px] min-h-[600px] bg-white shadow-lg rounded-[25px] overflow-auto border origin-bottom-right transition duration-200"
+  [ngClass]="{ 'scale-100': isChatboxOpen, 'scale-0': !isChatboxOpen }"
+>
+  <div class="w-full h-[70px] flex justify-between items-center px-[20px] border-b border-[#E2E2E2] shadow-[0px_42px_67px_0px_rgba(122,122,122,0.1)]">
+    <p class="font-bold text-blue-500 text-xl">Chatbot</p>
+    <img (click)="closeChatbox()" class="cursor-pointer" width="30" height="30" alt="exit" src="assets/icons/sign-out-alt.svg" />
+  </div>
+  <div class="h-[350px] pt-[16px] overflow-y-auto px-2">
+    <div *ngFor="let chat of chatLog; let i = index" [ngClass]="{ 'chat-end': chat.role === 'user', 'chat-start': chat.role === 'assistant' }" class="chat">
+      <ng-container *ngIf="chat.role === 'assistant'">
+        <div class="chat-image avatar">
+          <div class="w-10 rounded-full">
+            <img width="50" height="50" alt="Tailwind CSS chat bubble component" src="assets/icons/chatbot.png" />
+          </div>
+        </div>
+      </ng-container>
+      <div [ngClass]="{ 'bg-blue-200 text-slate-600': chat.role === 'user', 'bg-blue-500 text-slate-200': chat.role === 'assistant' }" class="chat-bubble">
+        {{ chat.content }}
+      </div>
+    </div>
+    <ng-container *ngIf="isTyping">
+      <div class="chat chat-start">
+        <div class="chat-image avatar">
+          <div class="w-10 rounded-full">
+            <img width="50" height="50" alt="Tailwind CSS chat bubble component" src="assets/icons/chatbot.png" />
+          </div>
+        </div>
+        <div class="chat-bubble bg-blue-500 text-slate-200">Typing...</div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="h-[180px] px-2 flex flex-col flex-1 justify-center items-center w-full border-t border-[#E2E2E2] shadow-[0px_-42px_67px_0px_rgba(122,122,122,0.1)]">
+    <div class="w-[96%] h-[80%] p-[16px] bg-slate-100 rounded-[10px] flex flex-col justify-center overflow-hidden">
+      <textarea
+        (keydown)="handleKeyDown($event)"
+        [(ngModel)]="prompt"
+        class="bg-slate-100 w-full h-[110px] resize-none text-xs text-slate-600"
+        style="border: none; outline: none;"
+        placeholder="Ask me questions..."
+      ></textarea>
+      <div class="flex justify-between items-center">
+        <img (click)="clearChatLog()" class="cursor-pointer" width="30" height="30" alt="new-chat" src="assets/icons/comment-plus.svg" />
+        <div
+          (click)="getAnswer(prompt); prompt = ''"
+          class="w-[27px] h-[27px] rounded-full bg-blue-200 flex justify-center items-center cursor-pointer"
+        >
+          <img width="500" height="500" alt="submit" src="assets/icons/angle-right-b.svg" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

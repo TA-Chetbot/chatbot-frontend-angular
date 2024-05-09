@@ -1,0 +1,6 @@
+<!-- chatbot-toggle.component.html -->
+<button
+  class="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center transition-transform duration-300"
+  [class.rotate-45]="isChatboxOpen" (click)="toggleChatbox()" aria-label="Toggle Chatbot">
+  <span class="text-xl">💬</span>
+</button>

@@ -1,0 +1,4 @@
+<div class="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
+    <app-chatbot-chatbox [isChatboxOpen]="isChatboxOpen" (isChatboxOpenChange)="closeChatbox()"></app-chatbot-chatbox>
+    <app-chatbot-toggle [isChatboxOpen]="isChatboxOpen" (toggleEvent)="toggleChatbox()"></app-chatbot-toggle>
+  </div>
