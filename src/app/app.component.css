@@ -1,0 +1,6 @@
+.background-pattern {
+    background-color: #ffffff;
+    opacity: 1;
+    background-size: 8px 8px;
+    background-image: repeating-linear-gradient(45deg, #efefef 0, #efefef 0.8px, #ffffff 0, #ffffff 50%);
+  }
