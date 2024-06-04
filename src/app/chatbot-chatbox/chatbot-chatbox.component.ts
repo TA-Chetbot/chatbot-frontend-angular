@@ -31,15 +31,19 @@ export class ChatbotChatboxComponent implements OnInit {
     }
     this.isTyping = true;
     this.chatLog.push({ role: 'user', content: question });
+    const preprocessed_question: any = await this.http.post(
+      `${environment.apiUrl}/preprocess_question`,
+      { text: question },
+      { headers: { 'Content-Type': 'application/json' } }
+    ).toPromise();
     const response = await this.http.post(
       `${environment.apiUrl}/get_answer`,
-      { question },
+      { question: preprocessed_question["preprocessed_question"] },
       { headers: { 'Content-Type': 'application/json' } }
     ).toPromise();
     const data = response as { answer: string };
     this.chatLog.push({ role: 'assistant', content: data.answer });
     this.isTyping = false;
-    console.log(data);
   }
 
   closeChatbox() {
